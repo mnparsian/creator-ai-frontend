@@ -7,6 +7,10 @@ import ContentForm from '../components/dashboard/ContentForm';
 import ContentOutput from '../components/dashboard/ContentOutput';
 import HistoryList from '../components/dashboard/HistoryList';
 import TermsModal from '../components/modals/TermsModal';
+import httpClient from '../lib/httpClient';
+import billingService from '../services/billingService';
+import { ContentHistoryResponse, GenerateContentRequest, GeneratedContent } from '../types/content';
+import { logError } from '../lib/logger';
 
 export default function DashboardPage() {
     const { subscription, loadSubscription } = useAuth();
