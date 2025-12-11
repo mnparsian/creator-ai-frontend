@@ -7,7 +7,7 @@ export default function OutputStoryboard({ storyboard }: { storyboard?: Storyboa
     const copyText = storyboard.map(s => `Scene ${s.scene}: [${s.duration_seconds}s] ${s.visual} | Shot: ${s.shot} | VO: ${s.voiceover}`).join('\n');
 
     return (
-        <div className="relative bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm">
+        <div className="relative bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 pb-16 shadow-sm">
             <CopyButton text={copyText} />
             <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">🎬 Storyboard</h3>
             <div className="space-y-4">

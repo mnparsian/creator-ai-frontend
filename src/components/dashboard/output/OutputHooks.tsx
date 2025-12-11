@@ -7,7 +7,7 @@ export default function OutputHooks({ hooks }: { hooks?: string[] }) {
     const rtl = isRTL(hooks[0]);
 
     return (
-        <div className={`relative bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm ${rtl ? "text-right" : "text-left"}`} dir={rtl ? "rtl" : "ltr"}>
+        <div className={`relative bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 pb-16 shadow-sm ${rtl ? "text-right" : "text-left"}`} dir={rtl ? "rtl" : "ltr"}>
             <CopyButton text={content} />
             <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">Hooks</h3>
             <ul className="space-y-2">

@@ -13,7 +13,7 @@ export default function OutputSEO({ description, keywords, hashtags }: OutputSEO
     const copyText = `Description:\n${description || ''}\n\nKeywords:\n${keywords?.join(', ') || ''}\n\nHashtags:\n${hashtags?.join(' ') || ''}`;
 
     return (
-        <div className="relative bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm">
+        <div className="relative bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 pb-16 shadow-sm">
             <CopyButton text={copyText} />
             <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">SEO Insights</h3>
             <div className={`space-y-4 ${isRTL(description || '') ? "text-right" : "text-left"}`} dir={isRTL(description || '') ? "rtl" : "ltr"}>
