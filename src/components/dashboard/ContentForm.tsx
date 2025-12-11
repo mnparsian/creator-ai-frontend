@@ -25,7 +25,7 @@ export default function ContentForm({ onGenerate, isLoading }: ContentFormProps)
                 <select
                     value={contentType}
                     onChange={(e) => setContentType(e.target.value as ContentType)}
-                    className="w-full px-4 py-2 bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-900 dark:text-slate-50"
+                    className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-900 dark:text-slate-50"
                 >
                     <option value="YOUTUBE_SCRIPT">YouTube Script</option>
                     <option value="TIKTOK_SCRIPT">TikTok/Reels Script</option>
@@ -62,7 +62,7 @@ export default function ContentForm({ onGenerate, isLoading }: ContentFormProps)
                     value={idea}
                     onChange={(e) => setIdea(e.target.value)}
                     rows={4}
-                    className="w-full px-4 py-2 bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-900 dark:text-slate-50 resize-none"
+                    className="w-full px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-900 dark:text-slate-50 resize-none"
                     placeholder="Enter your content idea..."
                 />
             </div>

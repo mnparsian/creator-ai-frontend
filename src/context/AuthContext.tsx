@@ -3,6 +3,7 @@ import httpClient from '../lib/httpClient';
 import { tokenStorage } from '../lib/tokenStorage';
 import { logError } from '../lib/logger';
 import type { User, AuthResponse, Subscription } from '../types/auth';
+import { parseJwt } from '../utils/jwt';
 
 interface AuthContextType {
     user: User | null;
@@ -97,8 +98,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             } else {
                 // If we don't have user data yet, create a minimal user object
                 // This happens when reloading the page with a valid token
+                const token = tokenStorage.getAccessToken();
+                let email = '';
+                if (token) {
+                    const decoded = parseJwt(token);
+                    if (decoded && decoded.sub) {
+                        email = decoded.sub; // 'sub' usually holds the email/username in JWT
+                    } else if (decoded && decoded.email) {
+                        email = decoded.email;
+                    }
+                }
+
                 setUser({
-                    email: '', // Will be populated from token
+                    email: email,
                     role: 'USER',
                     currentPlan: data.plan,
                 });
