@@ -96,8 +96,8 @@ export default function LandingPage() {
                 <div className="flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 dark:text-slate-400">
                     <p>© {new Date().getFullYear()} {t("footer.rights")}</p>
                     <div className="flex items-center gap-4 mt-4 md:mt-0">
-                        <a href="#" className="hover:text-slate-900 dark:hover:text-slate-50 transition-colors">{t("footer.privacy")}</a>
-                        <a href="#" className="hover:text-slate-900 dark:hover:text-slate-50 transition-colors">{t("footer.terms")}</a>
+                        <Link to="/privacy" className="hover:text-slate-900 dark:hover:text-slate-50 transition-colors">{t("footer.privacy")}</Link>
+                        <Link to="/terms" className="hover:text-slate-900 dark:hover:text-slate-50 transition-colors">{t("footer.terms")}</Link>
                         <a href="mailto:support@mahdinazari.net" className="flex items-center gap-2 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
