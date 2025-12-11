@@ -118,7 +118,7 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
                 {/* Left Column - Sticky */}
-                <div className="col-span-1 space-y-6 sticky top-6 h-fit">
+                <div className="col-span-1 space-y-6 lg:sticky lg:top-6 h-fit">
                     {/* Plan & Quota */}
                     <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm">
                         <div className="flex items-center justify-between mb-4">
