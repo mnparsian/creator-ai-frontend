@@ -5,6 +5,7 @@ import { PaymentHistory } from '../types/billing';
 import { useSearchParams } from 'react-router-dom';
 import billingService from '../services/billingService';
 import { logError } from '../lib/logger';
+import TermsModal from '../components/modals/TermsModal';
 
 export default function AccountSettingsPage() {
     const { user, subscription } = useAuth();
@@ -20,6 +21,10 @@ export default function AccountSettingsPage() {
     // Billing History State
     const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([]);
     const [loadingHistory, setLoadingHistory] = useState(true);
+
+    // Modal State
+    const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+    const [isUpgrading, setIsUpgrading] = useState(false);
 
     const [paymentError, setPaymentError] = useState('');
     const [searchParams] = useSearchParams();
@@ -88,7 +93,12 @@ export default function AccountSettingsPage() {
         });
     };
 
-    const handlePayNow = async () => {
+    const handlePayClick = () => {
+        setIsTermsModalOpen(true);
+    };
+
+    const confirmPayNow = async () => {
+        setIsUpgrading(true);
         try {
             // We call startProCheckout which will resume the existing INITIATED payment
             // logic on the backend (finding by user and status)
@@ -99,11 +109,21 @@ export default function AccountSettingsPage() {
         } catch (error) {
             logError('Failed to resume payment:', error);
             alert('Failed to proceed to payment. Please try again.');
+            setIsTermsModalOpen(false);
+        } finally {
+            setIsUpgrading(false);
         }
     };
 
     return (
         <div className="max-w-4xl mx-auto py-8 px-4 space-y-8">
+            <TermsModal
+                isOpen={isTermsModalOpen}
+                onClose={() => setIsTermsModalOpen(false)}
+                onConfirm={confirmPayNow}
+                isLoading={isUpgrading}
+            />
+
             <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Account Settings</h1>
 
             {/* SECTION A: User Profile Info */}
@@ -212,7 +232,7 @@ export default function AccountSettingsPage() {
                     <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Billing & History</h2>
                     {subscription?.plan === 'FREE' ? (
                         <button
-                            onClick={() => handlePayNow()} // Reuse logic or call startProCheckout directly
+                            onClick={handlePayClick}
                             className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-medium rounded-lg hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg shadow-orange-500/20"
                         >
                             Upgrade to PRO
@@ -267,7 +287,7 @@ export default function AccountSettingsPage() {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {payment.status === 'INITIATED' && (
                                                 <button
-                                                    onClick={() => handlePayNow()}
+                                                    onClick={handlePayClick}
                                                     className="text-xs bg-purple-600 hover:bg-purple-700 text-white font-medium px-3 py-1 rounded transition-colors"
                                                 >
                                                     Pay Now

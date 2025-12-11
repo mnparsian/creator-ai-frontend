@@ -12,6 +12,8 @@ import ProtectedRoute from '../components/routes/ProtectedRoute';
 
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
+import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
+import TermsAndConditionsPage from '../pages/TermsAndConditionsPage';
 
 export default function AppRoutes() {
     return (
@@ -24,6 +26,8 @@ export default function AppRoutes() {
                 <Route path="verify-success" element={<VerifySuccessPage />} />
                 <Route path="forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="reset-password" element={<ResetPasswordPage />} />
+                <Route path="privacy" element={<PrivacyPolicyPage />} />
+                <Route path="terms" element={<TermsAndConditionsPage />} />
                 <Route
                     path="dashboard"
                     element={
