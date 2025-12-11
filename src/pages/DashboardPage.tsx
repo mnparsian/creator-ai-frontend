@@ -6,11 +6,6 @@ import UpgradeBanner from '../components/dashboard/UpgradeBanner';
 import ContentForm from '../components/dashboard/ContentForm';
 import ContentOutput from '../components/dashboard/ContentOutput';
 import HistoryList from '../components/dashboard/HistoryList';
-import termsModal from '../components/modals/TermsModal';
-import httpClient from '../lib/httpClient';
-import billingService from '../services/billingService';
-import { ContentHistoryResponse, GenerateContentRequest, GeneratedContent } from '../types/content';
-import { logError } from '../lib/logger';
 import TermsModal from '../components/modals/TermsModal';
 
 export default function DashboardPage() {
