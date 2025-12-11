@@ -6,10 +6,12 @@ import UpgradeBanner from '../components/dashboard/UpgradeBanner';
 import ContentForm from '../components/dashboard/ContentForm';
 import ContentOutput from '../components/dashboard/ContentOutput';
 import HistoryList from '../components/dashboard/HistoryList';
+import termsModal from '../components/modals/TermsModal';
 import httpClient from '../lib/httpClient';
 import billingService from '../services/billingService';
 import { ContentHistoryResponse, GenerateContentRequest, GeneratedContent } from '../types/content';
 import { logError } from '../lib/logger';
+import TermsModal from '../components/modals/TermsModal';
 
 export default function DashboardPage() {
     const { subscription, loadSubscription } = useAuth();
@@ -17,6 +19,10 @@ export default function DashboardPage() {
     const [currentContent, setCurrentContent] = useState<GeneratedContent | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    // Modal State
+    const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+    const [isUpgrading, setIsUpgrading] = useState(false);
 
     const [searchParams] = useSearchParams();
 
@@ -61,7 +67,12 @@ export default function DashboardPage() {
         }
     };
 
-    const handleUpgrade = async () => {
+    const handleUpgradeClick = () => {
+        setIsTermsModalOpen(true);
+    };
+
+    const confirmUpgrade = async () => {
+        setIsUpgrading(true);
         try {
             const checkout = await billingService.startProCheckout();
             if (checkout.approvalUrl) {
@@ -70,6 +81,10 @@ export default function DashboardPage() {
         } catch (err: any) {
             logError('Failed to initiate checkout:', err);
             setError('Failed to start upgrade process. Please try again.');
+            setIsTermsModalOpen(false);
+        } finally {
+            // If redirect happens, this might not run on this page, but good for safety
+            setIsUpgrading(false);
         }
     };
 
@@ -98,6 +113,13 @@ export default function DashboardPage() {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
+            <TermsModal
+                isOpen={isTermsModalOpen}
+                onClose={() => setIsTermsModalOpen(false)}
+                onConfirm={confirmUpgrade}
+                isLoading={isUpgrading}
+            />
+
             <div className="mb-6">
                 <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-50 mb-2">
                     Dashboard
@@ -143,7 +165,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        {plan === 'FREE' && <UpgradeBanner onUpgrade={handleUpgrade} />}
+                        {plan === 'FREE' && <UpgradeBanner onUpgrade={handleUpgradeClick} />}
                     </div>
 
                     {/* Support Card */}
